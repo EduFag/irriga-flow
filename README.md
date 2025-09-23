@@ -3,9 +3,6 @@
 ## 📋 Introdução
 A computação em borda é uma abordagem que permite processar dados próximos à origem, reduzindo latência e aumentando a eficiência em sistemas IoT. Para exemplificar esse conceito na prática, vamos utilizar o caso do **IrrigaFlow**, um sistema de irrigação inteligente que aplica lógica fuzzy na borda para tomar decisões em tempo real.
 
-### IrrigaFlow (Simulação):
-[Bookmark do projeto IrrigaFlow] <!-- Substitua pelo link real, se desejar -->
-
 ## 💡 Conceito de Edge Computing
 > 💡 **Edge Computing** é o processamento de dados **perto da fonte**, ou seja, nos próprios dispositivos ou em servidores próximos aos sensores (IoT).
 
@@ -93,3 +90,15 @@ A computação em borda é uma abordagem que permite processar dados próximos �
 - **Nuvem (Cloud Logger):** armazena histórico em CSV e imprime painel no terminal.
 
 ### Diagrama de Fluxo
+![Diagrama](arquitetura-simulador.png)
+
+
+## ✅ Resumo da Separação
+| Função                         | Onde ocorre     | Justificativa                    |
+|--------------------------------|-----------------|----------------------------------|
+| Leitura do sensor (umidade)    | Edge            | É o ponto de origem dos dados    |
+| Decisão de irrigar ou não      | Edge            | Necessidade de resposta imediata |
+| Ação (ligar irrigação)         | Edge            | Atuador local                    |
+| Envio de dados MQTT            | Edge → Cloud    | Comunicação                      |
+| Armazenamento de eventos       | Cloud           | Histórico e análise              |
+| Relatórios e visualizações     | Cloud           | Avaliação futura                 |
