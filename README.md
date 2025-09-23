@@ -90,7 +90,7 @@ A computação em borda é uma abordagem que permite processar dados próximos �
 - **Nuvem (Cloud Logger):** armazena histórico em CSV e imprime painel no terminal.
 
 ### Diagrama de Fluxo
-![Diagrama](arquitetura-simulador.png)
+![Diagrama](arquitetura-simulador.PNG)
 
 
 ## ✅ Resumo da Separação
