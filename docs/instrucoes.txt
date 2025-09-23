@@ -1,0 +1,106 @@
+Guia Rápido para Rodar o Projeto de Exemplo IrrigaFlow
+
+Pré-requisitos:
+- Python 3.x instalado
+- Docker Desktop instalado e rodando
+- Biblioteca Python necessária:
+  pip install -r requirements.txt
+
+Docker:
+Arquivo docker-compose.yml:
+version: '3.8'
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
+  nodered:
+    image: nodered/node-red:latest
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./borda:/data
+    depends_on:
+      - mosquitto
+
+Rodar containers:
+docker-compose up -d
+
+Ver logs:
+docker-compose logs -f
+
+Node-RED:
+- Acesse http://localhost:1880
+- Importe o fluxo JSON abaixo diretamente na interface:
+[
+    {
+        "id": "1",
+        "type": "mqtt in",
+        "z": "flow1",
+        "name": "Sensor Umidade",
+        "topic": "sensor/irrigacao",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "mosquitto",
+        "x": 120,
+        "y": 100,
+        "wires": [["2"]]
+    },
+    {
+        "id": "2",
+        "type": "function",
+        "z": "flow1",
+        "name": "Decisão Irrigação",
+        "func": "var umidade = msg.payload;\nif (umidade < 40) {\n    msg.payload = 'ATIVAR IRRIGAÇÃO';\n} else {\n    msg.payload = 'DESLIGAR IRRIGAÇÃO';\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 100,
+        "wires": [["3"]]
+    },
+    {
+        "id": "3",
+        "type": "mqtt out",
+        "z": "flow1",
+        "name": "Decisão -> Nuvem",
+        "topic": "decisao/irrigacao",
+        "qos": "2",
+        "retain": "false",
+        "broker": "mosquitto",
+        "x": 540,
+        "y": 100,
+        "wires": []
+    }
+]
+- Configure o broker MQTT:
+  Host: mosquitto
+  Port: 1883
+
+Rodar módulos Python:
+Simulador de sensores (IoT):
+cd iot
+python sensor_sim.py
+
+Cloud Logger (Nuvem):
+cd nuvem
+python cloud_logger.py
+- Salva histórico em log_irrigacao.csv
+- Mostra painel de decisões no terminal
+
+Visualização:
+- Terminal Cloud Logger mostrará as decisões e histórico.
+- Node-RED mostrará fluxo visual e decisões em http://localhost:1880
+
+Parar e limpar:
+docker-compose down
+- Mantém imagens baixadas
+
+docker system prune -a
+- Remove todas as imagens e containers parados
+
+O projeto está pronto para estudo e demonstração: IoT → Borda → Nuvem.
