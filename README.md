@@ -37,7 +37,7 @@ A computação em borda é uma abordagem que permite processar dados próximos �
 
 ## 🏗️ Arquitetura IrrigaFlow (artigo)
 <!-- Imagem Arquitetura -->
-![Arquitetura IrrigaFlow](https://www.akamai.com/site/en/images/article/2024/how-does-edge-computing-work.png)
+![Arquitetura IrrigaFlow](arquitetura-irriga-flow.png)
 
 **Três camadas principais:**
 1. 🌡️ **Módulo IoT:**
