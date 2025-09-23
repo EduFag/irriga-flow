@@ -18,7 +18,7 @@ A computação em borda é uma abordagem que permite processar dados próximos �
 - **🔧 Resiliência**: sistema continua funcionando mesmo com conexão limitada.
 - **⚡ Eficiência**: processamento local permite executar algoritmos complexos sem depender de datacenter remoto.
 
-![Conceito de Edge Computing](edge-c)
+![Conceito de Edge Computing](edge-c.avif)
 
 ## ⚔️ Edge vs Cloud
 | Aspecto        | Edge                               | Cloud                             |
