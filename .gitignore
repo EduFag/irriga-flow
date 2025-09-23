@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.venv/
+
+# Logs e CSVs
+*.csv
+log_irrigacao.csv
+
+# Node-RED
+borda/.config.json
+borda/.config.nodes.json
+borda/.config.runtime.json
+borda/.config.users.json
+borda/.flows.json
+borda/.flows_cred.json
+borda/.npm/
+
+# Docker
+mosquitto/data/
+mosquitto/log/
+mosquitto/config/
+*.log
+
+# VSCode
+.vscode/
